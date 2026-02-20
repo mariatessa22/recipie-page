@@ -61,5 +61,3 @@ No Results Handling:
 If no recipes are found or the input field is empty, a friendly message will be displayed prompting the user to try again.
 No installation or additional setup is required - simply open the HTML file and start exploring recipes! 🍽️
 
-Example Screenshot
----
