@@ -39,3 +39,36 @@ clearBtn.addEventListener("click", function () {
     searchBox.value = "";        // clears input
     resultsDiv.innerHTML = "";   // clears search results
 });
+
+window.addEventListener("load", function () {
+
+    resultsDiv.innerHTML = "<p>Loading all recipes...</p>";
+
+    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
+        .then(res => res.json())
+        .then(data => {
+
+            if (!data.meals) {
+                resultsDiv.innerHTML = "<p>No recipes found.</p>";
+                return;
+            }
+
+            resultsDiv.innerHTML = "";
+
+            data.meals.forEach(meal => {
+                let div = document.createElement("div");
+                div.classList.add("recipe-card");
+
+                div.innerHTML = `
+                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                    <h3>${meal.strMeal}</h3>
+                    <p>${meal.strInstructions.substring(0, 100)}...</p>
+                `;
+
+                resultsDiv.appendChild(div);
+            });
+        })
+        .catch(() => {
+            resultsDiv.innerHTML = "<p>Error loading recipes!</p>";
+        });
+});
